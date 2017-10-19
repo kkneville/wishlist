@@ -1,0 +1,59 @@
+<h2>Welcome, <%= @user.firstname%>!</h2>
+
+
+<h3>Add a New Item</h3>
+
+<form class="form" action="/items/create" method="post">
+<input type="hidden" name="authenticity_token" placeholder="<%= form_authenticity_token %>"
+	<table>
+		<tbody>
+			<tr>
+				<td>Name:</td>
+				<td><input type="text" name="item[name]"></td>
+			</tr>
+			<tr>
+				<td>Price:</td>
+				<td><input type="integer" name="item[price]"></td>
+			</tr>
+		</tbody>
+	</table>
+	<input type="submit" value="Submit">
+</form>
+
+
+<h3>Items on your Wishlist</h3>
+
+<table>
+	<thead>
+		<tr>
+			<th>Item Name</th>
+			<th>Price</th>
+			<th>Options</th>
+		</tr>
+	</thead>
+	<tbody>
+	<% if @wishes %>
+	<% @wishes.each do |item| %>
+	<tr>
+		<td><%= item.name %> </td>
+		<td>$<%= item.price %> </td>
+		<td><%= link_to "Remove", remove_item_path(:id => item.id), :method => :delete %></td>
+	</tr>
+	<% end %>
+	<% end %>
+	</tbody>
+</table>
+
+
+<h3>Items on Other People's Wishlist</h3>
+
+<ul>
+	<% if @other %>
+	<% @other.each do |item| %>
+	<% if not item.wishers.include? current_user %>	
+	<li> <%= item.name %> : <%= item.price %> | <%= link_to "Add to Wishlist", add_wish_path(:item_id => item.id), :method => :post %>
+	</li>
+	<% end %>
+	<% end %>
+	<% end %>
+</ul>
