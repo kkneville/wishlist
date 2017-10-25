@@ -3,6 +3,10 @@ class ItemsController < ApplicationController
     @user = current_user
     @wishes = @user.wished_fors.all
     @other = Item.where.not(id: @wishes)
+    q1 = current_user.friends
+    q2 = current_user.users
+    @friends = q1 + q2
+    @people = User.where.not(id: @friends)
   end
 
   def new
@@ -20,6 +24,9 @@ class ItemsController < ApplicationController
   end
 
   def show
+    @item = Item.find(params[:id])
+    @users = User.where(id: @item.wishers) 
+
   end
 
   def edit

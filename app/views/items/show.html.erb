@@ -1,2 +1,20 @@
-<h1>Items#show</h1>
-<p>Find me in app/views/items/show.html.erb</p>
+<h2>Item Detail</h2>
+
+<p> Name: <%= @item.name %> </p>
+<p> Price: $<%= @item.price %></p>
+<p> Other details...</p>
+
+<h3> Members who added this item to their wishlists </h3>
+
+<ul>
+	<% @users.each do |user| %>
+	<li> <%= user.firstname %> <%= user.lastname %> </li>
+	<% end %>
+</ul>
+
+	
+
+
+
+
+

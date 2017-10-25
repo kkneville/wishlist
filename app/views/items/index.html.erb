@@ -4,7 +4,7 @@
 <h3>Add a New Item</h3>
 
 <form class="form" action="/items/create" method="post">
-<input type="hidden" name="authenticity_token" placeholder="<%= form_authenticity_token %>"
+<input type="hidden" name="authenticity_token" placeholder="<%= form_authenticity_token %>">
 	<table>
 		<tbody>
 			<tr>
@@ -37,7 +37,7 @@
 	<tr>
 		<td><%= item.name %> </td>
 		<td>$<%= item.price %> </td>
-		<td><%= link_to "Remove", remove_item_path(:id => item.id), :method => :delete %></td>
+		<td><%= link_to "Item Details", view_item_path(:id => item.id) %> | <%= link_to "Remove", remove_item_path(:id => item.id), :method => :delete %></td>
 	</tr>
 	<% end %>
 	<% end %>
@@ -47,13 +47,69 @@
 
 <h3>Items on Other People's Wishlist</h3>
 
-<ul>
+<table>
+	<thead>
+		<tr>
+			<th>Item Name</th>
+			<th>Price</th>
+			<th>Options</th>
+		</tr>
+	</thead>
+	<tbody>
 	<% if @other %>
 	<% @other.each do |item| %>
-	<% if not item.wishers.include? current_user %>	
-	<li> <%= item.name %> : <%= item.price %> | <%= link_to "Add to Wishlist", add_wish_path(:item_id => item.id), :method => :post %>
-	</li>
+	<tr>
+		<td><%= item.name %></td>
+		<td>$<%= item.price %> </td>
+		<td><%= link_to "Item Details", view_item_path(:id => item.id) %> | <%= link_to "Add to Wishlist", add_wish_path(:item_id => item.id), :method => :post %></td>
+	</tr>
 	<% end %>
 	<% end %>
-	<% end %>
-</ul>
+	</tbody>
+</table>
+
+
+<h3>Your Friends</h3>
+
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Options</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% if @friends %>
+		<% @friends.each do |person| %>
+		<tr>
+			<td><%= person.firstname %> <%= person.lastname %></td>
+			<td><%= link_to "View Wishlist", user_path(:user_id => person.id) %> | <%= link_to "Remove Friend", remove_friend_path(:user_id => person.id), :method => :delete %>
+
+			</td>
+		</tr>	
+		<% end %>
+		<% end %>
+	</tbody>
+</table>
+
+
+<h3>Other Members of Our Community</h3>
+
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Options</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% if @people %>
+		<% @people.each do |person| %>
+		<tr>
+			<td><%= person.firstname %> <%= person.lastname %></td>
+			<td><%= link_to "Add Friend", add_friend_path(:id => person.id), :method => :post %></td>
+		</tr>	
+		<% end %>
+		<% end %>
+	</tbody>
+</table>

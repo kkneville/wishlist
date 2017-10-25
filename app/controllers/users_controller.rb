@@ -3,6 +3,9 @@ class UsersController < ApplicationController
   end
 
   def new
+    if current_user
+      return redirect_to items_path
+    end  
     @countries = ["US", "TX", "UK", "CH", "CAN", "DE", "FR", "DM", "SW", "IT", "KE", "SA"]
   end
 
@@ -32,7 +35,7 @@ class UsersController < ApplicationController
     if user.valid?
       user.save
     end  
-    return redirect_to "/showuser"  
+    return redirect_to items_path
   end
 
   def delete
@@ -48,7 +51,7 @@ class UsersController < ApplicationController
     user.firstname = params[:firstname]
     user.lastname = params[:lastname]
     user.email = params[:email]
-    user.location = params[:dob]
+    user.dob = params[:dob]
     user.country = params[:country]
     user.save
     return user

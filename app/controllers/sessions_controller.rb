@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   def new
     if current_user
-      return redirect_to events_path
+      return redirect_to items_path
     end  
   end
 

@@ -1,4 +1,21 @@
 Rails.application.routes.draw do
+
+  root 'users#new'
+  
+  get 'friendships/index'
+
+  get 'friendships/new'
+
+  post 'friendships/create' => 'friendships#create', as: "add_friend"
+
+  get 'friendships/show'
+
+  get 'friendships/edit'
+
+  get 'friendships/update'
+
+  delete 'friendships/delete' => 'friendships#delete', as: 'remove_friend'
+
   get 'sessions/index'
 
   get 'login' => 'sessions#new', as: 'login_page'
@@ -33,7 +50,7 @@ Rails.application.routes.draw do
 
   post 'items/create' => 'items#create', as: 'create_item'
 
-  get 'items/show'
+  get 'items/show' => 'items#show', as: 'view_item'
 
   get 'items/edit'
 
@@ -41,7 +58,7 @@ Rails.application.routes.draw do
 
   get 'items/delete'
 
- get 'index' => 'users#index', as: 'index'
+  get 'index' => 'users#index', as: 'index'
 
   get 'register' => 'users#new', as: 'register_page'
 

@@ -4,9 +4,17 @@ class User < ActiveRecord::Base
   validates :firstname, :lastname, :email, presence: :true
   validates :email, uniqueness: :true, format: {with: email_regex}
   before_save :downcase_email
+
   has_many :items
+
   has_many :wishes, foreign_key: :wisher_id
   has_many :wished_fors, through: :wishes, source: :wished_for
+
+  has_many :friendships, foreign_key: :user_id
+  has_many :friends, through: :friendships, source: :friend
+
+  has_many :relationships, foreign_key: :friend_id, class_name: "Friendship"
+  has_many :users, through: :relationships, source: :user
 
   def downcase_email
   	self.email.downcase!
