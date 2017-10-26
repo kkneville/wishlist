@@ -1,7 +1,7 @@
 <h2>All Users</h2>
 
 
-<p> Create Department </p>
+<h3> Create Department </h3>
 <form class="form" action="/depts/create" method="post">
 <input type="hidden" name="authenticity_token" placeholder="<%= form_authenticity_token %>">
 <p> New Dept Name: <input type="text" name="newdept"></p>	
@@ -9,17 +9,17 @@
 </form>
 
 
-<p> Add Employee to Department</p>
+<h3> Add Employee to Department</h3>
 <form class="form" action="/depts/update" method="post">
 <input type="hidden" name="authenticity_token" placeholder="<%= form_authenticity_token %>">
-<p> Select Employee </p>
+<h4> Select Employee </h4>
 	<% if @employees %>
 	<% @employees.each do |emp| %>
 		<p><input type="checkbox" name="emp[]" value="<%= emp.id %>"><%= emp.firstname %> <%= emp.lastname %></p>
 	<% end %>
 	<% end %>
 </select>
-<p> Select Department </p>
+<h4> Select Department </h4>
 <select name="dept">
 	<% if @depts %>
 	<% @depts.each do |dept| %>
@@ -31,14 +31,14 @@
 </form>
 
 
-<p> Make Someone a Supervisor </p>
+<h3> Make Someone a Supervisor </h3>
 <form class="form" action="/supervisions/create" method="post">
 <input type="hidden" name="authenticity_token" placeholder="<%= form_authenticity_token %>">
-<p> Select Supervisor, if applicable </p>
+<p> Select Employee to Promote </p>
 <select name="id">
 	<% if @people %>
 	<% @people.each do |emp|%>
-		<option value="<%= emp.id %>"><%= emp.firstname %> <%= emp.lastname %></option>
+		<option value="<%= emp.id %>"><%= emp.firstname %> <%= emp.lastname %> -- <%= emp.dept.name %></option>
 	<% end %>
 	<% end %>	
 </select>
@@ -61,8 +61,6 @@ Name: <%= dept.name %>
 		<% elsif emp.level == "lead" %>
 		-- <%= link_to "Demote", demote_path(id: emp.id), method: :delete %> 
 		<% end %>
-
-
 	</li>
 	<% end %>
 	<% end %>
@@ -71,6 +69,10 @@ Name: <%= dept.name %>
 <% end %>
 <% end %>	
 
+<form class="form" action="/supervisions/create" method="post">
+<input type="hidden" name="authenticity_token" placeholder="<%= form_authenticity_token %>">
+<input type="submit" value="Assign Secret Santas">
+</form>
 
 <table>
 	<thead>

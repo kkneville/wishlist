@@ -30,13 +30,13 @@ Rails.application.routes.draw do
 
   delete 'supervisions/delete' => 'supervisions#delete', as: 'demote'
 
-  get 'santa/index'
+  get 'santa/index' => 'santa#index', as: 'santas'
 
   get 'santa/new'
 
-  get 'santa/create'
+  post 'santa/create' => 'santa#create', as: 'assign_santas'
 
-  get 'santa/show'
+  get 'santa/show' => 'santa#show', as: 'santa'
 
   get 'santa/edit'
 

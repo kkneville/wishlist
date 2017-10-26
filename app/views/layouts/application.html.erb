@@ -16,8 +16,10 @@
 
 	<% if current_user.level == "admin" %>
 	<a href="<%= users_path %>">Users</a> |
+	<a href="<%= "/santa/index" %>">Secret Santas</a> |
+	<% else %>
+	<a href="<%= santa_show_path %>">Secret Santa</a> |
 	<% end %>
-
 	<a href="<%= logout_path %>" data-method="delete">Logout</a>
 	<% else %>
 	<a href="<%= register_path %>">Register</a> |

@@ -1,2 +1,54 @@
-<h1>Santa#index</h1>
-<p>Find me in app/views/santa/index.html.erb</p>
+
+
+
+<table>
+	<thead>
+		<tr>
+			<th> Name </th>
+			<th> Department </th>
+			<th> Role </th>
+			<th> Assigned Giftee </th>
+		</tr>
+	</thead>
+
+	<% if @users %>
+		<% @users.each do |user| %>
+			<tr>
+				<td>
+					<%= link_to "#{user.firstname} #{user.lastname}", user_path(user_id: user.id) %>
+				</td>
+				<td>
+					<% if user.dept %>
+					<%= user.dept.name %>
+					<% else %>
+					None
+					<% end %>
+				</td>
+				<td>
+					<%= user.level %>
+				</td>
+					<% if @giftees %>
+						<td>
+							<%= @giftees.where(gifter_id: user.id) %>
+						</td>	
+					<% end %>
+			</tr>		
+		<% end %>
+	<% end %>
+</table>
+
+<% if @giftees %>
+
+<p><form class="form" action="/santa/create" method="post">
+<input type="hidden" name="authenticity_token" placeholder="<%= form_authenticity_token %>">
+<input type="submit" value="Reassign Secret Santas">
+</form></p>
+
+<% else %>
+
+<p><form class="form" action="/santa/create" method="post">
+<input type="hidden" name="authenticity_token" placeholder="<%= form_authenticity_token %>">
+<input type="submit" value="Assign Secret Santas">
+</form></p>
+
+<% end %>
