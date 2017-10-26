@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171026140925) do
+ActiveRecord::Schema.define(version: 20171026232558) do
+
+  create_table "comments", force: :cascade do |t|
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
+    t.integer  "user_id"
+    t.text     "content"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "comments", ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "depts", force: :cascade do |t|
     t.string   "name"
@@ -38,6 +50,27 @@ ActiveRecord::Schema.define(version: 20171026140925) do
   end
 
   add_index "items", ["user_id"], name: "index_items_on_user_id"
+
+  create_table "pms", force: :cascade do |t|
+    t.string   "content"
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "pms", ["recipient_id"], name: "index_pms_on_recipient_id"
+  add_index "pms", ["sender_id"], name: "index_pms_on_sender_id"
+
+  create_table "posts", force: :cascade do |t|
+    t.string   "title"
+    t.text     "content"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id"
 
   create_table "santa", force: :cascade do |t|
     t.integer  "gifter_id"

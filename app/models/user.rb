@@ -5,12 +5,20 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: :true, format: {with: email_regex}
   before_save :downcase_email
 
+
+
   has_many :items
 
   belongs_to :dept
 
+  has_many :comments, as: :commentable
+
+
+
   has_many :wishes, foreign_key: :wisher_id
   has_many :wished_fors, through: :wishes, source: :wished_for
+
+
 
   has_many :friendships, foreign_key: :user_id
   has_many :friends, through: :friendships, source: :friend
@@ -18,11 +26,15 @@ class User < ActiveRecord::Base
   has_many :relationships, foreign_key: :friend_id, class_name: "Friendship"
   has_many :users, through: :relationships, source: :user
 
+
+
   has_many :santa, foreign_key: :gifter_id
   has_many :giftees, through: :santa, source: :giftee
 
   has_many :assigned, foreign_key: :giftee_id, class_name: "Santum"
   has_many :gifters, through: :assigned, source: :gifter
+
+
 
   has_many :supervisions, foreign_key: :lead_id
   has_many :drs, through: :supervisions, source: :dr
@@ -30,6 +42,13 @@ class User < ActiveRecord::Base
   has_many :monitors, foreign_key: :dr_id, class_name: "Supervision"
   has_many :leads, through: :monitors, source: :lead
 
+
+
+  has_many :PMs, foreign_key: :recipient_id
+  has_many :senders, through: :PMs, source: :sender
+
+  has_many :messages, foreign_key: :sender_id, class_name: "Pm"
+  has_many :recipients, through: :messages, source: :recipient
 
 
 
