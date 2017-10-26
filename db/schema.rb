@@ -11,7 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171025215247) do
+ActiveRecord::Schema.define(version: 20171026140925) do
+
+  create_table "depts", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "friendships", force: :cascade do |t|
     t.integer  "user_id"
@@ -34,14 +40,24 @@ ActiveRecord::Schema.define(version: 20171025215247) do
   add_index "items", ["user_id"], name: "index_items_on_user_id"
 
   create_table "santa", force: :cascade do |t|
-    t.integer  "user_id"
+    t.integer  "gifter_id"
     t.integer  "giftee_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   add_index "santa", ["giftee_id"], name: "index_santa_on_giftee_id"
-  add_index "santa", ["user_id"], name: "index_santa_on_user_id"
+  add_index "santa", ["gifter_id"], name: "index_santa_on_gifter_id"
+
+  create_table "supervisions", force: :cascade do |t|
+    t.integer  "lead_id"
+    t.integer  "dr_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "supervisions", ["dr_id"], name: "index_supervisions_on_dr_id"
+  add_index "supervisions", ["lead_id"], name: "index_supervisions_on_lead_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "firstname"
@@ -53,6 +69,7 @@ ActiveRecord::Schema.define(version: 20171025215247) do
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.string   "level",           default: "reg"
+    t.integer  "dept_id"
   end
 
   create_table "wishes", force: :cascade do |t|

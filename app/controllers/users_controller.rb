@@ -1,6 +1,16 @@
 class UsersController < ApplicationController
   def index
+    if not current_user.level == "admin"
+      return redirect_to index_path 
+    end  
     @users = User.all.where.not(id: current_user.id)
+
+    @depts = Dept.all
+
+    @employees = User.all.where(dept: nil)
+
+    @regs = User.all.where(level: "reg")
+    @people = @regs.where.not(dept: nil)
   end
 
   def new

@@ -1,5 +1,35 @@
 Rails.application.routes.draw do
 
+  get 'depts/index'
+
+  get 'depts/new'
+
+  post 'depts/create' => 'depts#create', as: 'new_dept'
+
+  get 'depts/show'
+
+  get 'depts/edit'
+
+  post 'depts/update' => 'depts#update', as: 'add_emps'
+
+  delete 'depts/delete' => 'depts#delete', as: 'delete_dept'
+
+  delete 'depts/reassign' => 'depts#reassign', as: 'reassign_emp'
+
+  get 'supervisions/index'
+
+  get 'supervisions/new'
+
+  post 'supervisions/create' => 'supervisions#create', as: 'promote'
+
+  get 'supervisions/show'
+
+  get 'supervisions/edit'
+
+  get 'supervisions/update'
+
+  delete 'supervisions/delete' => 'supervisions#delete', as: 'demote'
+
   get 'santa/index'
 
   get 'santa/new'

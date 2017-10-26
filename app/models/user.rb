@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
 
   has_many :items
 
+  belongs_to :dept
+
   has_many :wishes, foreign_key: :wisher_id
   has_many :wished_fors, through: :wishes, source: :wished_for
 
@@ -21,6 +23,16 @@ class User < ActiveRecord::Base
 
   has_many :assigned, foreign_key: :giftee_id, class_name: "Santum"
   has_many :gifters, through: :assigned, source: :gifter
+
+  has_many :supervisions, foreign_key: :lead_id
+  has_many :drs, through: :supervisions, source: :dr
+
+  has_many :monitors, foreign_key: :dr_id, class_name: "Supervision"
+  has_many :leads, through: :monitors, source: :lead
+
+
+
+
 
   def downcase_email
   	self.email.downcase!

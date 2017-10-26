@@ -1,6 +1,75 @@
 <h2>All Users</h2>
 
 
+<p> Create Department </p>
+<form class="form" action="/depts/create" method="post">
+<input type="hidden" name="authenticity_token" placeholder="<%= form_authenticity_token %>">
+<p> New Dept Name: <input type="text" name="newdept"></p>	
+<input type="submit" value="Select">
+</form>
+
+
+<p> Add Employee to Department</p>
+<form class="form" action="/depts/update" method="post">
+<input type="hidden" name="authenticity_token" placeholder="<%= form_authenticity_token %>">
+<p> Select Employee </p>
+	<% if @employees %>
+	<% @employees.each do |emp| %>
+		<p><input type="checkbox" name="emp[]" value="<%= emp.id %>"><%= emp.firstname %> <%= emp.lastname %></p>
+	<% end %>
+	<% end %>
+</select>
+<p> Select Department </p>
+<select name="dept">
+	<% if @depts %>
+	<% @depts.each do |dept| %>
+		<option value="<%= dept.id %>"><%= dept.name %></option>
+	<% end %>
+	<% end %>
+</select>
+<p><input type="submit" value="Add"></p>
+</form>
+
+
+<p> Make Someone a Supervisor </p>
+<form class="form" action="/supervisions/create" method="post">
+<input type="hidden" name="authenticity_token" placeholder="<%= form_authenticity_token %>">
+<p> Select Supervisor, if applicable </p>
+<select name="id">
+	<% if @people %>
+	<% @people.each do |emp|%>
+		<option value="<%= emp.id %>"><%= emp.firstname %> <%= emp.lastname %></option>
+	<% end %>
+	<% end %>	
+</select>
+<p><input type="submit" value="Promote"></p>
+</form>
+
+
+<h3>Departments</h3>
+
+<% if @depts %>
+<% @depts.each do |dept| %>
+Name: <%= dept.name %>
+	<ul>
+	<% if dept.users %>
+	<% dept.users.each do |emp| %>
+	<li> <%= emp.firstname %> <%= emp.lastname %> 
+		-- <%= emp.level %> 
+		<% if emp.level == "reg" %>
+		-- <%= link_to "Reassign", reassign_emp_path(id: emp.id), method: :delete %> 
+		<% elsif emp.level == "lead" %>
+		-- <%= link_to "Demote", demote_path(id: emp.id), method: :delete %> 
+		<% end %>
+
+
+	</li>
+	<% end %>
+	<% end %>
+	</ul>
+<p> <%= link_to "Disband", delete_dept_path(id: dept.id), method: :delete %> </p>	
+<% end %>
+<% end %>	
 
 
 <table>
