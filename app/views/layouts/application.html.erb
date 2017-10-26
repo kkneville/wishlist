@@ -12,13 +12,14 @@
 	Secret Santa |
 	Logged in as <%= current_user.firstname %> |
 	<%= link_to "Profile", user_path(:user_id => current_user.id)  %> |
-	<a href="<%= items_path  %>">Dashboard</a> |
+	<a href="<%= items_path  %>">Wishlist</a> |
+	<a href="<%= friends_path  %>">Friends</a> |
 
 	<% if current_user.level == "admin" %>
 	<a href="<%= users_path %>">Users</a> |
 	<a href="<%= "/santa/index" %>">Secret Santas</a> |
 	<% else %>
-	<a href="<%= santa_show_path %>">Secret Santa</a> |
+	<a href="<%= santa_path %>">Secret Santa</a> |
 	<% end %>
 	<a href="<%= logout_path %>" data-method="delete">Logout</a>
 	<% else %>

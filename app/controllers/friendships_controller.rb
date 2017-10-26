@@ -1,5 +1,10 @@
 class FriendshipsController < ApplicationController
   def index
+    q1 = current_user.friends
+    q2 = current_user.users
+    @friends = q1 + q2
+    @people = User.where.not(id: @friends)
+    @people = @people.where.not(id: current_user.id)
   end
 
   def new
@@ -10,7 +15,7 @@ class FriendshipsController < ApplicationController
     friendship.user = current_user
     friendship.friend = User.find(params[:id])
     friendship.save
-    return redirect_to items_path
+    return redirect_to friends_path
   end
 
   def show
@@ -32,10 +37,10 @@ class FriendshipsController < ApplicationController
     @friendships.each do |fs| 
       if fs.user_id == current_user.id 
         fs.delete
-        return redirect_to items_path
+        return redirect_to friends_path
       elsif fs.friend_id == current_user.id
         fs.delete
-        return redirect_to items_path
+        return redirect_to friends_path
       end  
     end  
   end

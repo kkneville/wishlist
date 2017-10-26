@@ -42,11 +42,11 @@ Rails.application.routes.draw do
 
   get 'santa/update'
 
-  get 'santa/delete'
+  delete 'santa/delete' => 'santa/delete', as: 'destroy_santas'
 
   root 'users#new'
   
-  get 'friendships/index'
+  get 'friendships/index' => 'friendships#index', as: 'friends'
 
   get 'friendships/new'
 

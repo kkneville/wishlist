@@ -1,2 +1,23 @@
-<h1>Santa#show</h1>
-<p>Find me in app/views/santa/show.html.erb</p>
+<h3>You are Secret Santa for:</h3>
+
+<h2><%= link_to "#{@giftee.firstname} #{@giftee.lastname}!", user_path(user_id: @giftee.id) %> </h2>
+
+<p> Don't tell your assigned giftee about your role, it's supposed to be a secret.
+
+<p>For ideas about what to give your giftee, please check out his or her profile and wishlist.</p>
+
+<p>Here are some things <%= @giftee.firstname %> has wished for: </p>
+
+<ul>
+	<% if @giftee.wished_fors %>
+		<% @giftee.wished_fors.each do |item| %>
+			<li><%= item.name %> - <%= item.price %></li>
+		<% end %>	
+	<% end %>	
+</ul>
+
+
+
+
+
+

@@ -3,11 +3,7 @@ class ItemsController < ApplicationController
     @user = current_user
     @wishes = @user.wished_fors.all
     @other = Item.where.not(id: @wishes)
-    q1 = current_user.friends
-    q2 = current_user.users
-    @friends = q1 + q2
-    @people = User.where.not(id: @friends)
-    @people = @people.where.not(id: current_user.id)
+    
   end
 
   def new

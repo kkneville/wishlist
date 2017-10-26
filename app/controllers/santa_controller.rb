@@ -3,7 +3,9 @@ class SantaController < ApplicationController
     if not current_user.level == "admin"
       return redirect_to index_path 
     end  
-    @users = User.all.where.not(id: current_user.id)
+    @reg = User.where(level: "reg")
+    @sup = User.where(level: "lead")
+    @santas = Santum.all
   end
 
   def new
@@ -12,55 +14,53 @@ class SantaController < ApplicationController
   def create
 
     users = []
-    a = User.all.where(level: "reg")
+    a = User.where(level: "reg")
     a.each do |user|
-      user.push(user)
+      users.push(user.id)
     end
 
-    santas1 = []
-    while users.length > 0 do
-        santas1.push(users.slice!(users[rand(0...users.length)]))
-    end
+    users.shuffle!
 
     i = 0
-    while i < santas1.length-1 do
+    while i < users.length-1 do
       s = Santum.new
-      s.gifter = User.find(santas1[i].id)
-      s.giftee = User.find(santas1[i+1].id)
+      s.gifter = User.find(users[i])
+      s.giftee = User.find(users[i+1])
       s.save
-      i += 2
+      i += 1
     end
     s = Santum.new
-    s.gifter = User.find(santas1[santas1.length].id)
-    s.giftee = User.find(santas1[0])
+    s.gifter = User.find(users[users.length-1])
+    s.giftee = User.find(users[0])
+    s.save
 
-    users = [] 
-    a = User.all.where(level: "lead")
+
+    users = []
+    a = User.where(level: "lead")
     a.each do |user|
-      users.push(user)
+      users.push(user.id)
     end
 
-    santas2 = []
-    while users.length > 0 do
-        santas2.push(users.slice!(users[rand(0...users.length)]))
-    end
+    users.shuffle!
 
     i = 0
-    while i < santas2.length-1 do
+    while i < users.length-1 do
       s = Santum.new
-      s.gifter = User.find(santas2[i].id)
-      s.giftee = User.find(santas2[i+1].id)
+      s.gifter = User.find(users[i])
+      s.giftee = User.find(users[i+1])
       s.save
-      i += 2
+      i += 1
     end
     s = Santum.new
-    s.gifter = User.find(santas2[santas2.length].id)
-    s.giftee = User.find(santas2[0])
+    s.gifter = User.find(users[users.length-1])
+    s.giftee = User.find(users[0])
+    s.save
 
-    return redirect_to back:
+    return redirect_to :back
   end
 
   def show
+    @giftee = current_user.giftees.first
   end
 
   def edit
@@ -70,5 +70,10 @@ class SantaController < ApplicationController
   end
 
   def delete
+    santas = Santum.all
+    santas.each do |santa|
+      santa.delete
+    end
+    return redirect_to :back
   end
 end

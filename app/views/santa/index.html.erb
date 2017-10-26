@@ -11,8 +11,8 @@
 		</tr>
 	</thead>
 
-	<% if @users %>
-		<% @users.each do |user| %>
+	<% if @reg %>
+		<% @reg.each do |user| %>
 			<tr>
 				<td>
 					<%= link_to "#{user.firstname} #{user.lastname}", user_path(user_id: user.id) %>
@@ -27,9 +27,9 @@
 				<td>
 					<%= user.level %>
 				</td>
-					<% if @giftees %>
+					<% if user.giftees.first %>
 						<td>
-							<%= @giftees.where(gifter_id: user.id) %>
+							<%= user.giftees.first.firstname %>
 						</td>	
 					<% end %>
 			</tr>		
@@ -37,11 +37,49 @@
 	<% end %>
 </table>
 
-<% if @giftees %>
 
-<p><form class="form" action="/santa/create" method="post">
+<table>
+	<thead>
+		<tr>
+			<th> Name </th>
+			<th> Department </th>
+			<th> Role </th>
+			<th> Assigned Giftee </th>
+		</tr>
+	</thead>
+
+	<% if @sup %>
+		<% @sup.each do |user| %>
+			<tr>
+				<td>
+					<%= link_to "#{user.firstname} #{user.lastname}", user_path(user_id: user.id) %>
+				</td>
+				<td>
+					<% if user.dept %>
+					<%= user.dept.name %>
+					<% else %>
+					None
+					<% end %>
+				</td>
+				<td>
+					<%= user.level %>
+				</td>
+					<% if user.giftees.first %>
+						<td>
+							<%= user.giftees.first.firstname %>
+						</td>	
+					<% end %>
+			</tr>		
+		<% end %>
+	<% end %>
+</table>
+
+<% if @santas.length > 0 %>
+
+<p><form class="form" action="/santa/delete" method="post">
 <input type="hidden" name="authenticity_token" placeholder="<%= form_authenticity_token %>">
-<input type="submit" value="Reassign Secret Santas">
+<input type="hidden" name="_method" value="delete">
+<input type="submit" value="Destroy Secret Santas">
 </form></p>
 
 <% else %>
@@ -52,3 +90,4 @@
 </form></p>
 
 <% end %>
+

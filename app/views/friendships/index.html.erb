@@ -1,2 +1,45 @@
-<h1>Friendships#index</h1>
-<p>Find me in app/views/friendships/index.html.erb</p>
+
+<h3>Your Friends</h3>
+
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Options</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% if @friends %>
+		<% @friends.each do |person| %>
+		<tr>
+			<td><%= link_to "#{person.firstname} #{person.lastname}", user_path(:user_id => person.id) %></td>
+			<td><%= link_to "Remove Friend", remove_friend_path(:user_id => person.id), :method => :delete %>
+
+			</td>
+		</tr>	
+		<% end %>
+		<% end %>
+	</tbody>
+</table>
+
+
+<h3>Other Members of Our Community</h3>
+
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Options</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% if @people %>
+		<% @people.each do |person| %>
+		<tr>
+			<td><%= person.firstname %> <%= person.lastname %></td>
+			<td><%= link_to "Add Friend", add_friend_path(:id => person.id), :method => :post %></td>
+		</tr>	
+		<% end %>
+		<% end %>
+	</tbody>
+</table>
