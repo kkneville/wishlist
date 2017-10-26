@@ -7,6 +7,7 @@ class ItemsController < ApplicationController
     q2 = current_user.users
     @friends = q1 + q2
     @people = User.where.not(id: @friends)
+    @people = @people.where.not(id: current_user.id)
   end
 
   def new
@@ -17,7 +18,7 @@ class ItemsController < ApplicationController
       if @item.valid?
         @item.save
         session[:item_id] = @item.id
-        return redirect_to add_wish_path
+        return redirect_to new_wish_path
       end
       flash[:errors] = @item.errors.full_messages
       return redirect_to :back

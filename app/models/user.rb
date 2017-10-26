@@ -16,6 +16,12 @@ class User < ActiveRecord::Base
   has_many :relationships, foreign_key: :friend_id, class_name: "Friendship"
   has_many :users, through: :relationships, source: :user
 
+  has_many :santa, foreign_key: :gifter_id
+  has_many :giftees, through: :santa, source: :giftee
+
+  has_many :assigned, foreign_key: :giftee_id, class_name: "Santum"
+  has_many :gifters, through: :assigned, source: :gifter
+
   def downcase_email
   	self.email.downcase!
   end 

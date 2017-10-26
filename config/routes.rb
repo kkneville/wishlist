@@ -1,5 +1,19 @@
 Rails.application.routes.draw do
 
+  get 'santa/index'
+
+  get 'santa/new'
+
+  get 'santa/create'
+
+  get 'santa/show'
+
+  get 'santa/edit'
+
+  get 'santa/update'
+
+  get 'santa/delete'
+
   root 'users#new'
   
   get 'friendships/index'
@@ -36,6 +50,8 @@ Rails.application.routes.draw do
 
   post 'wishes/create' => 'wishes#create', as: 'add_wish'
 
+  get 'wishes/create' => 'wishes#create', as: 'new_wish'
+
   get 'wishes/show'
 
   get 'wishes/edit'
@@ -58,7 +74,7 @@ Rails.application.routes.draw do
 
   get 'items/delete'
 
-  get 'index' => 'users#index', as: 'index'
+  get 'users' => 'users#index', as: 'users'
 
   get 'register' => 'users#new', as: 'register_page'
 
