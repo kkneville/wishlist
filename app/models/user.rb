@@ -44,11 +44,11 @@ class User < ActiveRecord::Base
 
 
 
-  has_many :PMs, foreign_key: :recipient_id
-  has_many :senders, through: :PMs, source: :sender
+  has_many :messages, foreign_key: :recipient_id
+  has_many :senders, through: :messages, source: :sender
 
-  has_many :messages, foreign_key: :sender_id, class_name: "Pm"
-  has_many :recipients, through: :messages, source: :recipient
+  has_many :missives, foreign_key: :sender_id, class_name: "Message"
+  has_many :recipients, through: :missives, source: :recipient
 
 
 

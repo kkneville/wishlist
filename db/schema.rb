@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171026232558) do
+ActiveRecord::Schema.define(version: 20171026234114) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id"
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20171026232558) do
 
   add_index "items", ["user_id"], name: "index_items_on_user_id"
 
-  create_table "pms", force: :cascade do |t|
+  create_table "messages", force: :cascade do |t|
     t.string   "content"
     t.integer  "sender_id"
     t.integer  "recipient_id"
@@ -59,8 +59,8 @@ ActiveRecord::Schema.define(version: 20171026232558) do
     t.datetime "updated_at",   null: false
   end
 
-  add_index "pms", ["recipient_id"], name: "index_pms_on_recipient_id"
-  add_index "pms", ["sender_id"], name: "index_pms_on_sender_id"
+  add_index "messages", ["recipient_id"], name: "index_pms_on_recipient_id"
+  add_index "messages", ["sender_id"], name: "index_pms_on_sender_id"
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"

@@ -14,9 +14,8 @@
 		<tr>
 			<td><%= link_to "#{person.firstname} #{person.lastname}", user_path(:user_id => person.id) %></td>
 			<td>
-				<%= link_to "Send PM", remove_friend_path(:user_id => person.id), :method => :delete %>
+				<%= link_to "Send Message", new_message_path(:user_id => person.id), :method => :post %>
 				<%= link_to "Remove Friend", remove_friend_path(:user_id => person.id), :method => :delete %>
-
 			</td>
 		</tr>	
 		<% end %>

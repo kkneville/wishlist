@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'posts/index'
+  get 'posts/index' => 'posts#index', as: "board"
 
   get 'posts/new'
 
@@ -14,19 +14,21 @@ Rails.application.routes.draw do
 
   get 'posts/delete'
 
-  get 'p_ms/index'
+  get 'messages/index' => 'messages#index', as: 'messages'
 
-  get 'p_ms/new'
+  get 'messages/new' => 'messages#new', as: 'new_message'
 
-  get 'p_ms/create'
+  post 'messages/new' => 'messages#new', as: 'start_message'
 
-  get 'p_ms/show'
+  post 'messages/create' => 'messages#create', as: 'send_message'
 
-  get 'p_ms/edit'
+  get 'messages/show' 
 
-  get 'p_ms/update'
+  get 'messages/edit'
 
-  get 'p_ms/delete'
+  get 'messages/update'
+
+  get 'messages/delete'
 
   get 'depts/index'
 

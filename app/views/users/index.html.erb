@@ -69,33 +69,3 @@ Name: <%= dept.name %>
 <% end %>
 <% end %>	
 
-<form class="form" action="/supervisions/create" method="post">
-<input type="hidden" name="authenticity_token" placeholder="<%= form_authenticity_token %>">
-<input type="submit" value="Assign Secret Santas">
-</form>
-
-<table>
-	<thead>
-		<tr>
-			<th> Name </th>
-			<th> Assigned Giftee </th>
-		</tr>
-	</thead>
-
-	<% if @users %>
-		<% @users.each do |user| %>
-			<tr>
-				<td>
-					<%= link_to "#{user.firstname} #{user.lastname}", user_path(user_id: user.id) %>
-				</td>
-					<% if @giftees %>
-						<td>
-							<%= @giftees.where(gifter_id: user.id) %>
-						</td>	
-					<% end %>
-			</tr>		
-		<% end %>
-	<% end %>
-</table>
-
-
