@@ -10,11 +10,13 @@ class WishesController < ApplicationController
     if session[:item_id]
       wish.wished_for = Item.find(session[:item_id])
       session.delete(:item_id)
+      wish.wisher = current_user
+      wish.save
     else 
       wish.wished_for = Item.find(params[:item_id])
+      wish.wisher = current_user
+      wish.save
     end
-    wish.wisher = current_user
-    wish.save
     return redirect_to items_path
   end
 

@@ -1,3 +1,5 @@
+
+<% if @giftee %>
 <h3>You are Secret Santa for:</h3>
 
 <h2><%= link_to "#{@giftee.firstname} #{@giftee.lastname}!", user_path(user_id: @giftee.id) %> </h2>
@@ -16,8 +18,9 @@
 	<% end %>	
 </ul>
 
+<% else %>
+ 
+<h3>Secret Santas haven't been assigned yet!</h3>
 
-
-
-
+<% end %>
 
