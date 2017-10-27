@@ -6,18 +6,13 @@ class User < ActiveRecord::Base
   before_save :downcase_email
 
 
-
   has_many :items
-
   belongs_to :dept
-
   has_many :comments, as: :commentable
-
 
 
   has_many :wishes, foreign_key: :wisher_id
   has_many :wished_fors, through: :wishes, source: :wished_for
-
 
 
   has_many :friendships, foreign_key: :user_id
@@ -27,13 +22,11 @@ class User < ActiveRecord::Base
   has_many :users, through: :relationships, source: :user
 
 
-
   has_many :santa, foreign_key: :gifter_id
   has_many :giftees, through: :santa, source: :giftee
 
   has_many :assigned, foreign_key: :giftee_id, class_name: "Santum"
   has_many :gifters, through: :assigned, source: :gifter
-
 
 
   has_many :supervisions, foreign_key: :lead_id
@@ -43,13 +36,11 @@ class User < ActiveRecord::Base
   has_many :leads, through: :monitors, source: :lead
 
 
-
   has_many :messages, foreign_key: :recipient_id
   has_many :senders, through: :messages, source: :sender
 
   has_many :missives, foreign_key: :sender_id, class_name: "Message"
   has_many :recipients, through: :missives, source: :recipient
-
 
 
 
