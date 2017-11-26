@@ -6,7 +6,7 @@
 <form class="form" action="/depts/create" method="post">
 <input type="hidden" name="authenticity_token" placeholder="<%= form_authenticity_token %>">
 <p> New Dept Name: <input type="text" name="newdept"></p>	
-<input type="submit" value="Select">
+<input type="submit" value="Create">
 </form>
 
 <p> ----------------------------------------------------------</p>
@@ -71,7 +71,8 @@ Name: <%= dept.name %>
 			<td><%= emp.firstname %> <%= emp.lastname %></td>
 			<td><%= emp.level %></td>
 			<% if emp.level == "reg" %>
-			<td><%= link_to "Reassign", reassign_emp_path(id: emp.id), method: :delete %></td>
+			<td><%= link_to "Reassign", reassign_emp_path(id: emp.id), method: :delete %> | 
+				<%= link_to "Promote", promote_path(id: emp.id), method: :post %> </td>
 			<% elsif emp.level == "lead" %>
 			<td><%= link_to "Demote", demote_path(id: emp.id), method: :delete %></td> 
 			<% end %>

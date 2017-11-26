@@ -2,7 +2,15 @@
 <% if @giftee %>
 <h3>You are Secret Santa for:</h3>
 
+<p>-------------------------</p>
 <h2><%= link_to "#{@giftee.firstname} #{@giftee.lastname}!", user_path(user_id: @giftee.id) %> </h2>
+<p> Level: <%= @giftee.level %></p>
+<p> House: 
+	<% if @giftee.dept %>
+		<%= @giftee.dept.name %>
+	<% end %>
+</p>
+<p>-------------------------</p>
 
 <p> Don't tell your assigned giftee about your role, it's supposed to be a secret.
 

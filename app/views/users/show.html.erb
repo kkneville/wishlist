@@ -2,6 +2,13 @@
 
 
 <p> Name: <%= @user.firstname %> <%= @user.lastname %> </p>
+<p> Level: <%= @user.level %></p>
+<p> House: 
+	<% if @user.dept %>
+		<%= @user.dept.name %>
+	<% end %>
+</p>
+
 
 <p><% if @user == current_user %>
 <%= link_to "Edit", edit_user_path(id: current_user.id) %>

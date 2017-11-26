@@ -13,3 +13,86 @@
  *= require_tree .
  *= require_self
  */
+
+body {
+	background-image: url("https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/BAkiNR2in00wzqn/top-view-hands-holding-christmas-presents-on-red-background-from-above-gift-wrapped-in-brown-paper-and-tied-white-ribbon_rcc_jnlee_thumbnail-full01.png");
+	color: black;
+}
+
+a {
+	color: black;
+}
+
+.outer {
+	height: 500px;
+	width: 800px;
+	background-color:#d3bf7d;
+	margin-left: 400px;
+	margin-top: 200px;
+	border-style: none;
+	border-radius: 25px;
+	padding: 50px 70px;
+}
+
+.navbar div {
+	display: inline-block;
+}
+
+#navbar {
+	border-style: solid;
+	border-color: #394a09;
+	border-width: 2px;
+	border-top-right-radius: 25px;
+	border-top-left-radius: 25px;
+	text-align: center;
+	background-color: white;
+	height: 60px;
+	padding: 10px 0px;
+
+
+}
+
+#box {
+	overflow: scroll;
+	height: 380px;
+	border-style: solid;
+	border-color: #394a09;
+	border-width: 2px;
+	border-top-style: none;
+	padding: 20px;
+	background-color: white;
+	width: 756px;
+	display: inline-block;
+
+
+}
+
+#left-words {
+	display: inline-block;
+	vertical-align: top;
+	width: 300px;
+	font-family: 'Norican', cursive;
+	font-size: 60px;
+	color: #394a09;
+
+}
+
+#right-words {
+	display: inline-block;
+	vertical-align: middle;
+	text-align: right;
+	width: 400px;
+
+
+}
+
+#right-top {
+	vertical-align: middle;
+}
+
+#right-bottom {
+	vertical-align: middle;
+}
+
+#reg {
+}
