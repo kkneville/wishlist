@@ -2,68 +2,67 @@
 <html>
 <head>
   <title>Wishlist</title>
-  <link rel="stylesheet" href="https://raw.githubusercontent.com/kristoferjoseph/flexboxgrid/master/dist/flexboxgrid.css" type="text/css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Fondamento|Homemade+Apple|Merienda+One|Norican|Permanent+Marker" rel="stylesheet">
+
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
+      <a class="navbar-brand" href="#">SecretSanta</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+      	<% if current_user %>
+	        <li><%= link_to "Profile", user_path(:user_id => current_user.id)  %></li>
+	        <li><a href="<%= items_path  %>">Wishlist</a></li>
+	        <li><a href="<%= friends_path  %>">Friends</a></li>
+	        <li><a href="<%= board_path  %>">Board</a></li>
+	        <li><a href="<%= messages_path  %>">Messages</a></li>
+	        	<% if current_user.level == "admin" %>
+					<li><a href="<%= users_path %>">Users</a></li>
+					<li><a href="<%= "/santa/index" %>">Secret Santas</a></li>
+				<% else %>
+					<li><a href="<%= santa_path %>">Secret Santa</a></li>
+				<% end %>	
+	        <li><a href="<%= logout_path %>" data-method="delete">Logout</a></li>
+	    <% else %>
+	    	<li><a href="<%= register_path %>">Register</a></li>
+	    	<li><a href="<%= login_path %>">Login</a></li>
+	    <% end %> 	
 
-<div class="outer">
-			<div id="navbar">
-					<% if current_user %>
-					<div id="left-words">
-					Secret 
-					Santa
-					</div>
-						<div id="right-words">
-								<div id="right-top" >
-								Logged in as <%= current_user.firstname %> | 
-								<%= link_to "Profile", user_path(:user_id => current_user.id)  %> |
-								<a href="<%= logout_path %>" data-method="delete">Logout</a> 
-								</div>
-								
-								<div id="right-bottom">
-								<p>	
-								<a href="<%= items_path  %>">Wishlist</a> |
-								<a href="<%= friends_path  %>">Friends</a> |
-								<a href="<%= board_path  %>">Board</a> | 
-								<a href="<%= messages_path  %>">Messages</a> |
-								
+      </ul>
+    </div>
+</nav>
 
-									<% if current_user.level == "admin" %>
-									<a href="<%= users_path %>">Users</a> |
-									<a href="<%= "/santa/index" %>">Secret Santas</a> 
-									<% else %>
-									<a href="<%= santa_path %>">Secret Santa</a> 
-									<% end %>
+<div class="jumbotron text-center">
+<h1>Secret Santa</h1>
+</div>	
 
-								
-								<% else %>
+		<% if flash[:errors] %>
+		<% flash[:errors].each do |error| %>
+		<p id="error"><%= error %></p>
+		<% end %>	
+		<% end %>	
+		
+		<%= yield %>
 
-								<a href="<%= register_path %>">Register</a> |
-								<a href="<%= login_path %>">Login</a>	
-								<% end %> 
-							</p>
-						</div>
-					</div>
-			</div>		
-
-			<div id="box">	
-
-					<% if flash[:errors] %>
-					<% flash[:errors].each do |error| %>
-				<p><%= error %></p>
-					<% end %>	
-					<% end %>	
-					
-				<%= yield %>
-			</div>		
-
-</div>
+<footer class="container-fluid text-center">
+  <p>built by:  <a href="http://www.kkneville.com"> katherine k. neville</a></p> 
+</footer>
 
 </body>
 </html>

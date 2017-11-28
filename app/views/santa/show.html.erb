@@ -1,34 +1,40 @@
 
-<% if @giftee %>
-<h3>You are Secret Santa for:</h3>
+<div class="row green">
+	<div class="col-sm-4"></div>
+	<div class='col-sm-4'>			
 
-<p>-------------------------</p>
-<h2><%= link_to "#{@giftee.firstname} #{@giftee.lastname}!", user_path(user_id: @giftee.id) %> </h2>
-<p> Level: <%= @giftee.level %></p>
-<p> House: 
-	<% if @giftee.dept %>
-		<%= @giftee.dept.name %>
-	<% end %>
-</p>
-<p>-------------------------</p>
+		<% if @giftee %>
+		<h2 class="contents"><%= link_to "#{@giftee.firstname} #{@giftee.lastname}!", user_path(user_id: @giftee.id) %> </h2>
+		<p> Level: <%= @giftee.level %></p>
+		<p> House: 
+			<% if @giftee.dept %>
+				<%= @giftee.dept.name %>
+			<% end %>
+		</p>
+		<p>-------------------------</p>
 
-<p> Don't tell your assigned giftee about your role, it's supposed to be a secret.
+		<p> Don't tell your assigned giftee about your role, it's supposed to be a secret.</p>
 
-<p>For ideas about what to give your giftee, please check out his or her profile and wishlist.</p>
+		<p>For ideas about what to give your giftee, please check out his or her profile and wishlist.</p>
 
-<p>Here are some things <%= @giftee.firstname %> has wished for: </p>
+		<p>-------------------------</p>
 
-<ul>
-	<% if @giftee.wished_fors %>
-		<% @giftee.wished_fors.each do |item| %>
-			<li><%= item.name %> - <%= item.price %></li>
-		<% end %>	
-	<% end %>	
-</ul>
+		<p>Here are some things <%= @giftee.firstname %> has wished for: </p>
 
-<% else %>
- 
-<h3>Secret Santas haven't been assigned yet!</h3>
+		<ul>
+			<% if @giftee.wished_fors %>
+				<% @giftee.wished_fors.each do |item| %>
+					<li><%= item.name %> - <%= item.price %></li>
+				<% end %>	
+			<% end %>	
+		</ul>
 
-<% end %>
+		<% else %>
+		 
+		<h3>Secret Santas haven't been assigned yet!</h3>
+
+		<% end %>
+	</div>
+	<div class="col-sm-4"></div>
+</div>		
 

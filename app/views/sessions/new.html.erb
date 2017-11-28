@@ -1,15 +1,28 @@
 
-  <h1>Login</h1>
-  <p>Please login with your email and password.</p> 
+<div class="row green">
+	<div class="col-sm-4"></div>
+	<div class='col-sm-4'>
 
 
-<form class="form" action="login" method="post">
-<input type="hidden" name="authenticity_token" placeholder="<%= form_authenticity_token %>">
-	
+		<p><em>Welcome to kkneville's SecretSanta app. To see this app in action, please register as a character from the Harry Potter universe, and take a look.</em></p>
+
+		<p><em>For full functionality, you will need to log in as Albus Dumbledore (albus@dumbledore.com, password1).</em></p>
+
+  		<h1>Login</h1>
+  		<p>Please login with your email and password.</p> 
+
+
+		<form class="form" action="login" method="post">
+		<input type="hidden" name="authenticity_token" placeholder="<%= form_authenticity_token %>">
 			
-		<p><input type="email" name="user[email]" placeholder="Email"></p>
-	
-	
-		<p><input type="password" name="user[password]" placeholder="Password"></p>
-	
-	<button type="submit">Login</button>	
+					
+				<p><input type="email" name="user[email]" placeholder="Email"></p>
+			
+			
+				<p><input type="password" name="user[password]" placeholder="Password"></p>
+			
+				<p><button class="other-buttons" type="submit">Login</button></p>	
+		</form>
+	</div>
+	<div class="col-sm-4"></div>
+</div>	

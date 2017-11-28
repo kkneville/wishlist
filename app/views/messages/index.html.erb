@@ -1,22 +1,7 @@
-<h2> Your Messages </h2>
-
-
-<h3>Sent:</h3>
-
-<% if @sent %>
-<% @sent.each do |m| %>
-<p> To: <%= m.recipient.firstname %> <%= m.recipient.lastname %> </p>
-<p> Content: <%= m.content %> </p>
-<p> ----------------------------------------- </p>
-<% end %>
-<% end %>
-
-
-<h3>Recieved:</h3>
-
-<% if @received %>
-<% @received.each do |m| %>
-<p> To: <%= m.recipient.firstname %> <%= m.recipient.lastname %> </p>
-<p> Content: <%= m.content %> </p>
-<% end %>
-<% end %>
+<div class="row green text-center">
+	<div class="col-sm-4"></div>
+	<div class='col-sm-4'>
+		<h2>Coming Soon!</h2>
+	</div>
+	<div class="col-sm-4"></div>
+</div>

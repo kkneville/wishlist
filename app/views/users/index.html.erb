@@ -1,90 +1,139 @@
-<h2>All Users</h2>
-
-<p> =================================================</p>
-
-<h3> Create Department </h3>
-<form class="form" action="/depts/create" method="post">
-<input type="hidden" name="authenticity_token" placeholder="<%= form_authenticity_token %>">
-<p> New Dept Name: <input type="text" name="newdept"></p>	
-<input type="submit" value="Create">
-</form>
-
-<p> ----------------------------------------------------------</p>
-
-<h3> Add Employee to Department</h3>
-<form class="form" action="/depts/update" method="post">
-<input type="hidden" name="authenticity_token" placeholder="<%= form_authenticity_token %>">
-<h4> Select Employee </h4>
-	<% if @employees %>
-	<% @employees.each do |emp| %>
-		<p><input type="checkbox" name="emp[]" value="<%= emp.id %>"><%= emp.firstname %> <%= emp.lastname %></p>
-	<% end %>
-	<% end %>
-</select>
-<h4> Select Department </h4>
-<select name="dept">
-	<% if @depts %>
-	<% @depts.each do |dept| %>
-		<option value="<%= dept.id %>"><%= dept.name %></option>
-	<% end %>
-	<% end %>
-</select>
-<p><input type="submit" value="Add"></p>
-</form>
-
-<p> ----------------------------------------------------------</p>
-
-<h3> Make Someone a Supervisor </h3>
-<form class="form" action="/supervisions/create" method="post">
-<input type="hidden" name="authenticity_token" placeholder="<%= form_authenticity_token %>">
-<p> Select Employee to Promote </p>
-<select name="id">
-	<% if @people %>
-	<% @people.each do |emp|%>
-		<option value="<%= emp.id %>"><%= emp.firstname %> <%= emp.lastname %> -- <%= emp.dept.name %></option>
-	<% end %>
-	<% end %>	
-</select>
-<p><input type="submit" value="Promote"></p>
-</form>
-
-<p> =================================================</p>
-
-<h3>Departments</h3>
+<div class="row darkgreen text-center">
+	<div class="col-sm-4"></div>
+	<div class='col-sm-4'>			
+			<h2>All Users</h2>
+	</div>
+	<div class="col-sm-4"></div>
+</div>			
 
 
-<% if @depts %>
-<% @depts.each do |dept| %>
-Name: <%= dept.name %>
-<table>
-	<thead>
-		<tr>
-			<th>Name</th>
-			<th>Level</th>
-			<th>Actions</th>
-		</tr>
-	</thead>
-	<tbody>
-	<% if dept.users %>
-	<% dept.users.each do |emp| %>
-		<tr>
-			<td><%= emp.firstname %> <%= emp.lastname %></td>
-			<td><%= emp.level %></td>
-			<% if emp.level == "reg" %>
-			<td><%= link_to "Reassign", reassign_emp_path(id: emp.id), method: :delete %> | 
-				<%= link_to "Promote", promote_path(id: emp.id), method: :post %> </td>
-			<% elsif emp.level == "lead" %>
-			<td><%= link_to "Demote", demote_path(id: emp.id), method: :delete %></td> 
-			<% end %>
-		</tr>
-	<% end %>
-	<% end %>
-	</tbody>
-</table>
 
-<p> <%= link_to "Disband", delete_dept_path(id: dept.id), method: :delete %> </p>	
-<p> ----------------------------------------------------------</p>
-<% end %>
-<% end %>	
+<div class="row green">
+	<div class="col-sm-4"></div>
+	<div class='col-sm-4'>	
+
+						<% if @depts %>
+						<% @depts.each do |dept| %>
+						<h2> <%= dept.name %></h2>
+						<table class="contents">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Level</th>
+									<th>Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+							<% if dept.users %>
+							<% dept.users.each do |emp| %>
+								<tr>
+									<td><%= emp.firstname %> <%= emp.lastname %></td>
+									<td><%= emp.level %></td>
+									<% if emp.level == "reg" %>
+									<td><%= link_to "Reassign", reassign_emp_path(id: emp.id), method: :delete %> | 
+										<%= link_to "Promote", promote_path(id: emp.id), method: :post %> </td>
+									<% elsif emp.level == "lead" %>
+									<td><%= link_to "Demote", demote_path(id: emp.id), method: :delete %></td> 
+									<% end %>
+								</tr>
+							<% end %>
+							<% end %>
+							</tbody>
+						</table>
+						<br>
+						<p class="red"> <%= link_to "Disband", delete_dept_path(id: dept.id), method: :delete %> </p>	
+						<p> ----------------------------------------------------------</p>
+						<% end %>
+						<% end %>	
+	</div>
+	<div class="col-sm-4"></div>
+</div>						
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row darkgreen">
+	<div class="col-sm-4"></div>
+	<div class='col-sm-4 text-right'>	
+
+			<h3> Create Department </h3>
+			<form class="form" action="/depts/create" method="post">
+			<input type="hidden" name="authenticity_token" placeholder="<%= form_authenticity_token %>">
+			<p><input type="text" name="newdept" placeholder="New Department Name"></p>	
+			<button type="submit">Create</button>
+			</form>
+
+	</div>
+	<div class="col-sm-4"></div>
+</div>
+
+
+
+<div class="row green">
+	<div class="col-sm-4"></div>
+	<div class='col-sm-4'>
+
+			<h3> Add Employee to Department</h3>
+			<form class="form" action="/depts/update" method="post">
+			<input type="hidden" name="authenticity_token" placeholder="<%= form_authenticity_token %>">
+			<h4> 1. Select Employee </h4>
+				<% if @employees %>
+				<% @employees.each do |emp| %>
+					<p><input type="checkbox" name="emp[]" value="<%= emp.id %>"> <%= emp.firstname %> <%= emp.lastname %></p>
+				<% end %>
+				<% end %>
+			</select>
+			<h4> 2. Select Department </h4>
+			<select name="dept">
+				<% if @depts %>
+				<% @depts.each do |dept| %>
+					<option value="<%= dept.id %>"><%= dept.name %></option>
+				<% end %>
+				<% end %>
+			</select>
+			<br>
+			<br>
+			<p><button class="other-buttons" type="submit">Add</button></p>
+			</form>
+	</div>		
+	<div class="col-sm-4"></div>
+</div>
+
+
+
+<div class="row darkgreen text-right">
+	<div class="col-sm-4"></div>
+	<div class='col-sm-4'>
+
+			<h3> Quick Promotion </h3>
+			<form class="form" action="/supervisions/create" method="post">
+			<input type="hidden" name="authenticity_token" placeholder="<%= form_authenticity_token %>">
+			<p> Select Employee to Promote </p>
+			<select name="id">
+				<% if @people %>
+				<% @people.each do |emp|%>
+					<option value="<%= emp.id %>"><%= emp.firstname %> <%= emp.lastname %> -- <%= emp.dept.name %></option>
+				<% end %>
+				<% end %>	
+			</select>
+			<p><p><button type="submit">Promote</button></p></p>
+			</form>
+	</div>
+	<div class="col-sm-4"></div>
+</div>			
+
+			
